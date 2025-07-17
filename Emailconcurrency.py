@@ -13,7 +13,7 @@ os.system("cls" if os.name == "nt" else "clear")
 init()
 
 VERSION = "1.0.2"
-UPDATE_URL = "https://www.github.com/TR1123/Emailconcurrency/Emailconcurrency.py"
+UPDATE_URL = "https://github.com/TR1123/Emailconcurrency/blob/main/Emailconcurrency.py"
 
 
 ENCRYPTED_API_LIST = "eyJjaGlja2ZycCI6IHsibmFtZSI6ICJDaGlja0ZSUCBSZWdpc3RyYXRpb24iLCAidXJsIjogImh0dHBzOi8v" \
