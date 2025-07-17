@@ -132,9 +132,6 @@ username:password@ip:port
 Telegram ： @Anonfsocialize
 ```
 
-```bash
-QQ：663680370
-```
 
 
 
