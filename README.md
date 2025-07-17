@@ -4,7 +4,7 @@
 `Version: 1.0.2` | [GitHub Repository](https://github.com/TR1123/Emailconcurrency)
 
 
-## 界面截图
+
 
 ```
  _____              _  _                                                          
@@ -16,16 +16,17 @@
 
 [Version: 1.0.2]
 ```
-
+## ！！API目前接口任然有效！！
 
 
 ## 运行效果  
+
 ## 只利用公开API接口进行发送已达到骚扰效果！
 
 
 <img width="1115" height="628" alt="QQ20250717-152612" src="https://github.com/user-attachments/assets/f10909c4-1686-4d77-a65b-e48b06396938" />
-
-
+↑
+↓
 <img width="833" height="778" alt="QQ20250717-152633" src="https://github.com/user-attachments/assets/eb8c3696-0e33-43b6-8b67-218cf4e6533d" />
 
 
