@@ -132,7 +132,7 @@ username:password@ip:port
 ## 联系
 
 ```bash
-Telegram ： @BLckHexlock
+Telegram ： @☆☆☆☆☆☆☆☆
 ```
 
 
